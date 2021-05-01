@@ -1,0 +1,40 @@
+services:
+  client:
+    build:
+      context: client
+      dockerfile: Dockerfile
+    container_name: bug-report-client
+    env_file: ./client/.env
+    environment:
+      CHOKIDAR_USEPOLLING: "true" # enables hot-reloading on windows host
+    ports:
+      - "3000:3000"
+    volumes:
+      - type: bind
+        source: ./client/app
+        target: /usr/app
+      - "/usr/app/node_modules"
+    tty: true
+
+    # Overrides default command so things don't shut down after the process ends.
+    command: /bin/sh -c "while sleep 1000; do :; done"
+
+  server:
+    build:
+      context: server
+      dockerfile: Dockerfile
+    container_name: bug-report-server
+    env_file: ./server/.env
+    environment:
+      CHOKIDAR_USEPOLLING: "true" # enables hot-reloading on windows host
+    ports:
+      - "3001:3001"
+    volumes:
+      - type: bind
+        source: ./server/app
+        target: /usr/app
+      - "/usr/app/node_modules"
+    tty: true
+
+    # Overrides default command so things don't shut down after the process ends.
+    command: /bin/sh -c "while sleep 1000; do :; done"

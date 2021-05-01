@@ -1,0 +1,12 @@
+{
+  "name": "app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "dependencies": {
+    "@geckos.io/server": "^2.0.0-dev.3",
+    "express": "^4.17.1"
+  }
+}
